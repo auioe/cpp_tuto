@@ -1,5 +1,6 @@
 #include <iostream>
 #include <string>
+#include <fstream>
 
 struct Patron{
   std::string name;
@@ -9,17 +10,22 @@ struct Patron{
 int main(){
   using namespace std;
   int count;
-  cout << "Please enter the number of patrons: ";
-  cin >>  count;
-  cin.get();
+
+  ifstream inFile;
+  inFile.open("./patrons");  
+  
+  inFile >> count;
+  inFile.get();
   Patron *patron_list = new Patron[count];    
   
   for (int i=0; i<count;i++){
-    cout << "Please enter the name of " << i+1 << "th patron:";
-    getline(cin, patron_list[i].name);
-    cout << "Please enter the donation of " << i+1 << "th patron:";
-    cin >> patron_list[i].amount; 
-    cin.get();
+    if(inFile.bad()){
+      cout << "Failed to read "<< i+1 <<"th record, exiting..."<<endl;
+      return 0;
+    }
+    getline(inFile, patron_list[i].name);
+    inFile >> patron_list[i].amount; 
+    inFile.get();
   }
 
   cout << "Following is the list of Grand Patrons: " << endl;
