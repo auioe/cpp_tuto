@@ -1,7 +1,7 @@
 #include <iostream>
 using namespace std;
 int fill_array(double *, int);
-void show_array(double *, int);
+double sum_array(double *, int);
 void reverse_array(double *, int);
 
 
@@ -11,10 +11,10 @@ int main(){
   double data[max_size];
 
   real_size = fill_array(data, max_size);
-  show_array(data, real_size);
+  sum_array(data, real_size);
 
   reverse_array(data + 1, real_size - 2);
-  show_array(data, real_size);
+  sum_array(data, real_size);
 }
 
 int fill_array(double * data, int size){
@@ -31,11 +31,12 @@ int fill_array(double * data, int size){
   return count;
 }
 
-void show_array(double *data, int size){
+double sum_array(double *data, int size){
+  double sum = 0.0;
   for(int i=0; i<size; i++){
-    cout << data[i] << ", ";
+    sum += data[i];
   }
-  cout << "\b\b \n";
+  return sum;
 }
 
 void reverse_array(double *data, int size){
